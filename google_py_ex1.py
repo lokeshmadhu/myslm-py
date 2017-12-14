@@ -36,6 +36,15 @@ def extract_names(filename):
         return(namelist)
 
 
+def summaryfile(filename, nameslist):
+    try:
+        filehandle = open(filename, 'w')
+    except:
+        print('Unable to open {}'.format(filename))
+    else:
+        filehandle.write(str(nameslist))
+        filehandle.close()
+
 def main():
     # This command-line parsing code is provided by google
     # Make a list of command line arguments, omitting the [0] element
@@ -57,14 +66,18 @@ def main():
     # LM-> Change the path name and the filename to your environment.
     # Primarily the file captures all the names, so that you can search for a name to find the
     # trend in baby naming.
-    summaryfile = "I:\Documents\Lokesh's Documents\Python Programming\My Programs\summaryfile.txt"
-    filehandle = open(summaryfile, 'w')
+    
+    #LM-> Change this path to something where you want to create the file.
+    summaryfilename = "I:\Documents\Lokesh's Documents\Python Programming\My Programs\summaryfile.txt"
+    
     for filename in args[0:]:
         sortednames.append(extract_names(filename))    
     
-    filehandle.write(str(sortednames))
-    filehandle.close()    
-
-
+    # LM-> If summary is set to true, then instead of printing on screen, the names are copied to a file.
+    if summary:
+        summaryfile(summaryfilename, sortednames)
+    else:
+        print(sortednames)
+      
 
 if __name__ == "__main__": main()
